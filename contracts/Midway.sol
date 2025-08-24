@@ -6,7 +6,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {ILayerZeroEndpoint} from "@layerzerolabs/solidity-examples/contracts/lzApp/interfaces/ILayerZeroEndpoint.sol";
 import {ILayerZeroReceiver} from "@layerzerolabs/solidity-examples/contracts/lzApp/interfaces/ILayerZeroReceiver.sol";
 
-contract MidwayClient is Ownable, ILayerZeroReceiver {
+contract MidPayClient is Ownable, ILayerZeroReceiver {
     event LzCall(
         uint16 srcChainId,
         bytes srcAddress,
@@ -138,7 +138,7 @@ contract MidwayClient is Ownable, ILayerZeroReceiver {
         (bool success, ) = payable(msg.sender).call{
             value: address(this).balance
         }("");
-        require(success, "MidwayClient: Withdraw failed");
+        require(success, "MidPay: Withdraw failed");
     }
 
     receive() external payable {}

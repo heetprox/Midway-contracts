@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ILayerZeroEndpoint} from "@layerzerolabs/solidity-examples/contracts/lzApp/interfaces/ILayerZeroEndpoint.sol";
+import {ILayerZeroReceiver} from "@layerzerolabs/solidity-examples/contracts/lzApp/interfaces/ILayerZeroReceiver.sol";
 import {IExternalRouter} from "../interfaces/IExternalRouter.sol";
 
 contract ExternalRouter is IExternalRouter, Ownable {
@@ -17,9 +18,11 @@ contract ExternalRouter is IExternalRouter, Ownable {
     Message[] public messageQueue;
     uint16 public currentChainId;
     mapping(bytes => uint64) public lastNonces;
-    ILayerZeroReceiver public omniPay;
+    ILayerZeroReceiver public midPay;
 
-    constructor(address _midPay, uint16 _currentChainId) {
+    constructor(address _midPay, uint16 _currentChainId)
+    Ownable(msg.sender)
+     {
         midPay = ILayerZeroReceiver(_midPay);
         currentChainId = _currentChainId;
     }
@@ -33,8 +36,8 @@ contract ExternalRouter is IExternalRouter, Ownable {
         bytes calldata
     ) external override {
         require(
-            msg.sender == address(omniPay),
-            "ExternalRouter: Only OmniPay can call this function"
+            msg.sender == address(midPay),
+            "ExternalRouter: Only MidPay can call this function"
         );
 
         Message memory message = Message(_dstChainId, _destination, _payload);
@@ -58,11 +61,28 @@ contract ExternalRouter is IExternalRouter, Ownable {
     }
 
     function route(Message calldata message) external onlyOwner {
-        omniPay.lzReceive(
+        midPay.lzReceive(
             message.chainId,
             message.addressCombination,
             ++lastNonces[message.addressCombination],
             message.payload
         );
     }
+    
+    function pop() external onlyOwner {
+        require(messageQueue.length > 0, "ExternalRouter: No messages in queue");
+
+        messageQueue.pop();
+    }
+
+    function setMidPay(address _midPay) external onlyOwner {
+        midPay = ILayerZeroReceiver(_midPay);
+    }
+
+    function withdraw() external onlyOwner {
+        (bool success,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(success, "ExternalRouter: Withdraw failed");
+    }
+
+    receive() external payable {}
 }
