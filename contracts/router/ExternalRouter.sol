@@ -5,4 +5,12 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ILayerZeroEndpoint} from "@layerzerolabs/solidity-examples/contracts/lzApp/interfaces/ILayerZeroEndpoint.sol";
 import {IExternalRouter} from "../interfaces/IExternalRouter.sol";
 
+contract ExternalRouter is IExternalRouter, Ownable {
+    struct Message {
+        uint16 chainId;
+        bytes addressCombination;
+        bytes payload;
+    }
 
+    event MessageSent(Message message);
+}
