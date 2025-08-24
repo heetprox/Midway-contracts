@@ -4,15 +4,24 @@
   "type": "module",
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^3.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "@nomicfoundation/hardhat-toolbox-viem": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^3.0.0",
+    "@openzeppelin/contracts": "^5.4.0",
     "@types/bun": "latest",
     "@types/node": "^22.17.2",
     "forge-std": "github:foundry-rs/forge-std#v1.9.4",
     "hardhat": "^3.0.1",
+    "hardhat-toolbox-viem": "^1.0.0",
     "typescript": "~5.8.0",
     "viem": "^2.34.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@layerzerolabs/solidity-examples": "^1.1.0",
+    "dotenv": "^17.2.1"
   }
 }
