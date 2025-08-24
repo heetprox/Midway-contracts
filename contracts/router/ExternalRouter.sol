@@ -52,4 +52,17 @@ contract ExternalRouter is IExternalRouter, Ownable {
     ) external pure returns (uint256, uint256) {
         return (0, 0);
     }
+
+    function queueLength() external view returns (uint256) {
+        return messageQueue.length;
+    }
+
+    function route(Message calldata message) external onlyOwner {
+        omniPay.lzReceive(
+            message.chainId,
+            message.addressCombination,
+            ++lastNonces[message.addressCombination],
+            message.payload
+        );
+    }
 }
