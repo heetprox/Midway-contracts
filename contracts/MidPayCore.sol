@@ -29,7 +29,9 @@ contract MidPayCore is Ownable, ILayerZeroReceiver {
     ILayerZeroEndpoint public layerZeroEndpoint;
     IERC20 public usdc;
 
-    constructor(address _usdc, address _layerZeroEndpoint) {
+    constructor(address _usdc, address _layerZeroEndpoint) 
+    Ownable(msg.sender)
+    {
         usdc = IERC20(_usdc);
         layerZeroEndpoint = ILayerZeroEndpoint(_layerZeroEndpoint);
     }
