@@ -14,7 +14,6 @@ contract ExternalRouter is IExternalRouter, Ownable {
 
     event MessageSent(Message message);
 
-    
     Message[] public messageQueue;
     uint16 public currentChainId;
     mapping(bytes => uint64) public lastNonces;
