@@ -138,7 +138,7 @@ contract MidwayClient is Ownable, ILayerZeroReceiver {
         (bool success, ) = payable(msg.sender).call{
             value: address(this).balance
         }("");
-        require(success, "OmniPayClient: Withdraw failed");
+        require(success, "MidwayClient: Withdraw failed");
     }
 
     receive() external payable {}
