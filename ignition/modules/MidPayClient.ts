@@ -26,8 +26,8 @@ const MidPayClientModule = buildModule("MidPayClientModule", (m) => {
   const { fakeUSDC } = m.useModule(FakeUSDCModule);
   
   // Get LayerZero endpoint for current network
-  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as keyof typeof LAYERZERO_ENDPOINTS];
-  const chainId = CHAIN_IDS[networkName as keyof typeof CHAIN_IDS];
+  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as unknown as keyof typeof LAYERZERO_ENDPOINTS];
+  const chainId = CHAIN_IDS[networkName as unknown as keyof typeof CHAIN_IDS];
   const coreChainId = CHAIN_IDS["optimism-sepolia"]; // Core is always on Optimism Sepolia
   
   if (!lzEndpoint || !chainId) {
@@ -41,14 +41,17 @@ const MidPayClientModule = buildModule("MidPayClientModule", (m) => {
     coreAddress,
     coreChainId
   ]);
+
+  console.log("lzEndpoint", lzEndpoint);
+  console.log("chainId", chainId);
+  console.log("coreChainId", coreChainId);
+  console.log("coreAddress", coreAddress);
+  console.log("fakeUSDC", fakeUSDC);
+  console.log("midPayClient", midPayClient);
   
   return { 
     fakeUSDC, 
-    midPayClient,
-    networkName,
-    chainId,
-    coreChainId,
-    lzEndpoint 
+    midPayClient
   };
 });
 

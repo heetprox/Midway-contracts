@@ -25,8 +25,8 @@ const MidPayCoreModule = buildModule("MidPayCoreModule", (m) => {
   const { fakeUSDC } = m.useModule(FakeUSDCModule);
   
   // Get LayerZero endpoint for current network
-  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as keyof typeof LAYERZERO_ENDPOINTS];
-  const chainId = CHAIN_IDS[networkName as keyof typeof CHAIN_IDS];
+  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as unknown as keyof typeof LAYERZERO_ENDPOINTS];
+  const chainId = CHAIN_IDS[networkName as unknown as keyof typeof CHAIN_IDS];
   
   if (!lzEndpoint || !chainId) {
     throw new Error(`Unsupported network: ${networkName}`);
@@ -40,14 +40,18 @@ const MidPayCoreModule = buildModule("MidPayCoreModule", (m) => {
   
   // Set external router in MidPayCore
   m.call(midPayCore, "setExternalRouter", [externalRouter]);
+
+
+  console.log("lzEndpoint", lzEndpoint);
+  console.log("chainId", chainId);
+  console.log("fakeUSDC", fakeUSDC);
+  console.log("midPayCore", midPayCore);
+  console.log("externalRouter", externalRouter);
   
   return { 
     fakeUSDC, 
     midPayCore, 
-    externalRouter,
-    networkName,
-    chainId,
-    lzEndpoint 
+    externalRouter
   };
 });
 
