@@ -74,7 +74,7 @@ async function setupTrustedRemotesOnCore() {
       const clientAddress = clientDeployment.contracts["MidPayClientModule#MidPayClient"];
       
       // Convert client address to bytes (LayerZero format)
-      const clientAddressBytes = ethers.solidityPacked(["address"], [clientAddress]);
+      const clientAddressBytes = ethers.utils.solidityPack(["address"], [clientAddress]);
       
       const tx = await midPayCore.setTrustedRemoteLookup(
         CHAIN_IDS[clientNetwork as keyof typeof CHAIN_IDS],
@@ -118,7 +118,7 @@ async function setupTrustedRemoteOnClient() {
   console.log("\n=== Setting Trusted Remote on Client ===");
   
   // Convert core address to bytes (LayerZero format)
-  const coreAddressBytes = ethers.solidityPacked(["address"], [coreAddress]);
+  const coreAddressBytes = ethers.utils.solidityPack(["address"], [coreAddress]);
   
   try {
     // Set trusted remote (core)
