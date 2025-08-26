@@ -1,5 +1,9 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-import FakeUSDCModule from "./FakeUSDC";
+
+const FakeUSDCModule = buildModule("FakeUSDCModule", (m) => {
+  const fakeUSDC = m.contract("FakeUSDC", []);
+  return { fakeUSDC };
+});
 
 // LayerZero Endpoint addresses for testnets
 // LayerZero V1 Testnet Endpoints
@@ -19,15 +23,15 @@ const CHAIN_IDS = {
 };
 
 const MidPayCoreModule = buildModule("MidPayCoreModule", (m) => {
-  // Get network name from Hardhat runtime environment
-  const networkName = m.getParameter("networkName", "optimism-sepolia");
+  // Use hardcoded network for core (always optimism-sepolia)
+  const networkName = "optimism-sepolia";
   
   // Import FakeUSDC
   const { fakeUSDC } = m.useModule(FakeUSDCModule);
   
   // Get LayerZero endpoint for current network
-  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as unknown as keyof typeof LAYERZERO_ENDPOINTS];
-  const chainId = CHAIN_IDS[networkName as unknown as keyof typeof CHAIN_IDS];
+  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName];
+  const chainId = CHAIN_IDS[networkName];
   
   if (!lzEndpoint || !chainId) {
     throw new Error(`Unsupported network: ${networkName}`);

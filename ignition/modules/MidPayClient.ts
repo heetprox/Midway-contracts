@@ -1,5 +1,5 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-const FakeUSDCModule = require("./FakeUSDC");
+import FakeUSDCModule from "./FakeUSDC";
 
 // LayerZero V1 Testnet Endpoints
 const LAYERZERO_ENDPOINTS = {
