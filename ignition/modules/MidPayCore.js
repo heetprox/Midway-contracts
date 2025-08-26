@@ -1,6 +1,7 @@
-import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-const FakeUSDCModule = require("./FakeUSDC");
+const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
+const FakeUSDCModule = require("./FakeUSDC.js");
 
+// LayerZero Endpoint addresses for testnets
 // LayerZero V1 Testnet Endpoints
 const LAYERZERO_ENDPOINTS = {
   "optimism-sepolia": "0xae92d5aD7583AD66E49A0c67BAd18F6ba52dDDc1", // OP Sepolia
@@ -17,42 +18,41 @@ const CHAIN_IDS = {
   "zora-sepolia": 10270
 };
 
-const MidPayClientModule = buildModule("MidPayClientModule", (m) => {
-  // Get network name and core address from parameters
-  const networkName = m.getParameter("networkName", "eth-sepolia");
-  const coreAddress = m.getParameter("coreAddress", "0x0000000000000000000000000000000000000000");
+const MidPayCoreModule = buildModule("MidPayCoreModule", (m) => {
+  // Get network name from Hardhat runtime environment
+  const networkName = m.getParameter("networkName", "optimism-sepolia");
   
   // Import FakeUSDC
   const { fakeUSDC } = m.useModule(FakeUSDCModule);
   
   // Get LayerZero endpoint for current network
-  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as unknown as keyof typeof LAYERZERO_ENDPOINTS];
-  const chainId = CHAIN_IDS[networkName as unknown as keyof typeof CHAIN_IDS];
-  const coreChainId = CHAIN_IDS["optimism-sepolia"]; // Core is always on Optimism Sepolia
+  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName];
+  const chainId = CHAIN_IDS[networkName];
   
   if (!lzEndpoint || !chainId) {
     throw new Error(`Unsupported network: ${networkName}`);
   }
   
-  // Deploy MidPayClient
-  const midPayClient = m.contract("MidPayClient", [
-    fakeUSDC,
-    lzEndpoint,
-    coreAddress,
-    coreChainId
-  ]);
+  // Deploy MidPayCore
+  const midPayCore = m.contract("MidPayCore", [fakeUSDC, lzEndpoint]);
+  
+  // Deploy ExternalRouter
+  const externalRouter = m.contract("ExternalRouter", [midPayCore, chainId]);
+  
+  // Set external router in MidPayCore
+  m.call(midPayCore, "setExternalRouter", [externalRouter]);
 
   console.log("lzEndpoint", lzEndpoint);
   console.log("chainId", chainId);
-  console.log("coreChainId", coreChainId);
-  console.log("coreAddress", coreAddress);
   console.log("fakeUSDC", fakeUSDC);
-  console.log("midPayClient", midPayClient);
+  console.log("midPayCore", midPayCore);
+  console.log("externalRouter", externalRouter);
   
   return { 
     fakeUSDC, 
-    midPayClient
+    midPayCore, 
+    externalRouter
   };
 });
 
-export default MidPayClientModule;
+module.exports = MidPayCoreModule;

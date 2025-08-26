@@ -1,5 +1,5 @@
-import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-const FakeUSDCModule = require("./FakeUSDC");
+const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
+const FakeUSDCModule = require("./FakeUSDC.js");
 
 // LayerZero V1 Testnet Endpoints
 const LAYERZERO_ENDPOINTS = {
@@ -26,8 +26,8 @@ const MidPayClientModule = buildModule("MidPayClientModule", (m) => {
   const { fakeUSDC } = m.useModule(FakeUSDCModule);
   
   // Get LayerZero endpoint for current network
-  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as unknown as keyof typeof LAYERZERO_ENDPOINTS];
-  const chainId = CHAIN_IDS[networkName as unknown as keyof typeof CHAIN_IDS];
+  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName];
+  const chainId = CHAIN_IDS[networkName];
   const coreChainId = CHAIN_IDS["optimism-sepolia"]; // Core is always on Optimism Sepolia
   
   if (!lzEndpoint || !chainId) {
@@ -55,4 +55,4 @@ const MidPayClientModule = buildModule("MidPayClientModule", (m) => {
   };
 });
 
-export default MidPayClientModule;
+module.exports = MidPayClientModule;
