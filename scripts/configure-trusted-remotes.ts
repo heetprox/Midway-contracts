@@ -1,4 +1,5 @@
 // scripts/configure-trusted-remotes.ts
+import hre from "hardhat";
 import { ethers } from "hardhat";
 import * as fs from "fs";
 
@@ -40,7 +41,7 @@ function getChainIdForNetwork(networkName: string): number {
 }
 
 async function getCurrentNetworkName(): Promise<string> {
-  return (hre as any).network.name;
+  return hre.network.name;
 }
 
 async function setupTrustedRemotesOnCore() {
@@ -85,7 +86,7 @@ async function setupTrustedRemotesOnCore() {
       console.log(`   Chain ID: ${CHAIN_IDS[clientNetwork as keyof typeof CHAIN_IDS]}`);
       console.log(`   Address: ${clientAddress}`);
       
-    } catch (error) {
+    } catch (error: any) {
       console.log(`⚠️  Skipping ${clientNetwork}: deployment not found or error occurred`);
       console.log(`   Error: ${error.message}`);
     }

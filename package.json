@@ -2,7 +2,7 @@
   "name": "midway-contracts",
   "module": "index.ts",
   "type": "module",
-    "scripts": {
+  "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:core": "hardhat ignition deploy ignition/modules/MidPayCore.ts --network optimism-sepolia --parameters '{\"networkName\": \"optimism-sepolia\"}'",
@@ -25,26 +25,21 @@
     "list-deployments": "find ./ignition/deployments -name '*.json' -type f | head -20"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-ignition": "^3.0.0",
-    "@nomicfoundation/hardhat-network-helpers": "^3.0.0",
-    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
-    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.0",
-    "@nomicfoundation/hardhat-verify": "^3.0.0",
+    "@nomicfoundation/hardhat-ignition": "^0.15.5",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.11",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.11",
     "@openzeppelin/contracts": "^5.4.0",
-    "@types/bun": "latest",
-    "@types/node": "^22.17.2",
-    "forge-std": "github:foundry-rs/forge-std#v1.9.4",
-    "hardhat": "^3.0.1",
-    "hardhat-toolbox-viem": "^1.0.0",
-    "typescript": "~5.8.0",
-    "viem": "^2.34.0"
+    "@types/node": "^20.17.2",
+    "hardhat": "^2.22.15",
+    "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@layerzerolabs/solidity-examples": "^1.1.0",
-    "dotenv": "^17.2.1",
-    "ethers": "^6.15.0"
+    "dotenv": "^16.4.5",
+    "ethers": "^5.7.2"
   }
 }

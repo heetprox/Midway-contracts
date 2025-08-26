@@ -67,7 +67,7 @@ async function main() {
     for (const clientNetwork of clientNetworks) {
       try {
         await updateCoreAddressOnClient(clientNetwork, coreAddress);
-      } catch (error :any) {
+      } catch (error: any) {
         console.log(`⚠️  Skipping ${clientNetwork}: ${error.message}`);
       }
     }

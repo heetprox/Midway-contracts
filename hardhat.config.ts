@@ -1,71 +1,58 @@
 import type { HardhatUserConfig } from "hardhat/config";
-import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
-import { configVariable } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+import "@nomicfoundation/hardhat-ignition";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const config: HardhatUserConfig = {
-  plugins: [hardhatToolboxViemPlugin],
   solidity: {
-    profiles: {
-      default: {
-        version: "0.8.28",
-      },
-      production: {
-        version: "0.8.28",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        },
+    version: "0.8.28",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
       },
     },
   },
   networks: {
-    // Local hardhat L1
-    hardhatMainnet: {
-      type: "edr-simulated",
-      chainType: "l1",
+    hardhat: {
+      chainId: 31337,
     },
-
-    // Local hardhat OP stack
-    hardhatOp: {
-      type: "edr-simulated",
-      chainType: "op",
-    },
-
+    
     // Ethereum Sepolia
-    sepolia: {
-      type: "http",
-      chainType: "l1",
-      url: configVariable("SEPOLIA_RPC_URL"),
-      accounts: [configVariable("PRIVATE_KEY")],
+    "eth-sepolia": {
+      url: process.env.ETH_SEPOLIA_RPC_URL || "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 11155111,
     },
-
-    // Optimism Sepolia
-    optimismSepolia: {
-      type: "http",
-      chainType: "op",
-      url: configVariable("OPTIMISM_SEPOLIA_RPC_URL"),
-      accounts: [configVariable("PRIVATE_KEY")],
+    
+    // Optimism Sepolia  
+    "optimism-sepolia": {
+      url: process.env.OPTIMISM_SEPOLIA_RPC_URL || "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 11155420,
     },
-
+    
     // Zora Sepolia
-    zoraSepolia: {
-      type: "http",
-      chainType: "l1",
-      url: configVariable("ZORA_SEPOLIA_RPC_URL"),
-      accounts: [configVariable("PRIVATE_KEY")],
+    "zora-sepolia": {
+      url: process.env.ZORA_SEPOLIA_RPC_URL || "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 999999999,
     },
-
+    
     // Mode Sepolia
-    modeSepolia: {
-      type: "http",
-      chainType: "op",
-      url: configVariable("MODE_SEPOLIA_RPC_URL"),
-      accounts: [configVariable("PRIVATE_KEY")],
+    "mode-sepolia": {
+      url: process.env.MODE_SEPOLIA_RPC_URL || "",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 919,
+    },
+  },
+  etherscan: {
+    apiKey: {
+      sepolia: process.env.ETHERSCAN_API_KEY || "",
+      optimismSepolia: process.env.OPTIMISM_ETHERSCAN_API_KEY || "",
+      // Add other API keys as needed
     },
   },
 };
