@@ -1,19 +1,19 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 import FakeUSDCModule from "./FakeUSDC";
 
-// LayerZero Endpoint addresses for testnets
+// LayerZero V1 Testnet Endpoints
 const LAYERZERO_ENDPOINTS = {
-  "optimism-sepolia": "0x6EDCE65403992e310A62460808c4b910D972f10f",
-  "eth-sepolia": "0x6EDCE65403992e310A62460808c4b910D972f10f", 
-  "mode-sepolia": "0x6EDCE65403992e310A62460808c4b910D972f10f",
-  "zora-sepolia": "0x6EDCE65403992e310A62460808c4b910D972f10f"
+  "optimism-sepolia": "0xae92d5aD7583AD66E49A0c67BAd18F6ba52dDDc1", // OP Sepolia
+  "eth-sepolia": "0xae92d5aD7583AD66E49A0c67BAd18F6ba52dDDc1",      // ETH Sepolia  
+  "mode-sepolia": "0x6aB5Ae6822647046626e83ee6dB8187151E1d5ab",     // Mode Sepolia
+  "zora-sepolia": "0x6aB5Ae6822647046626e83ee6dB8187151E1d5ab"      // Zora Sepolia
 };
 
-// LayerZero Chain IDs for testnets
+// LayerZero V1 Chain IDs (different from v2)
 const CHAIN_IDS = {
-  "optimism-sepolia": 10232,
-  "eth-sepolia": 10161,
-  "mode-sepolia": 10260, 
+  "optimism-sepolia": 10232,  // These might be correct
+  "eth-sepolia": 10161,       // Need to verify v1 vs v2
+  "mode-sepolia": 10260,      
   "zora-sepolia": 10270
 };
 
