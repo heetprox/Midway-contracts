@@ -1,7 +1,6 @@
 {
   "name": "midway-contracts",
   "module": "index.ts",
-  "type": "module",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
