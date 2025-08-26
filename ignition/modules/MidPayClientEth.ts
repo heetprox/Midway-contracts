@@ -5,7 +5,6 @@ const FakeUSDCModule = buildModule("FakeUSDCModule", (m) => {
   return { fakeUSDC };
 });
 
-
 // LayerZero V1 Testnet Endpoints
 const LAYERZERO_ENDPOINTS = {
   "optimism-sepolia": "0xae92d5aD7583AD66E49A0c67BAd18F6ba52dDDc1", // OP Sepolia
@@ -22,17 +21,17 @@ const CHAIN_IDS = {
   "zora-sepolia": 10270
 };
 
-const MidPayClientModule = buildModule("MidPayClientModule", (m) => {
-  // Get network name and core address from parameters
-  const networkName = m.getParameter("networkName", "eth-sepolia");
-  const coreAddress = m.getParameter("coreAddress", "0x0000000000000000000000000000000000000000");
-  
+const MidPayClientEthModule = buildModule("MidPayClientEthModule", (m) => {
   // Import FakeUSDC
   const { fakeUSDC } = m.useModule(FakeUSDCModule);
   
+  // Hardcoded for Ethereum Sepolia
+  const networkName = "eth-sepolia";
+  const coreAddress = "0x0000000000000000000000000000000000000000"; // Will be updated after core deployment
+  
   // Get LayerZero endpoint for current network
-  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName as unknown as keyof typeof LAYERZERO_ENDPOINTS];
-  const chainId = CHAIN_IDS[networkName as unknown as keyof typeof CHAIN_IDS];
+  const lzEndpoint = LAYERZERO_ENDPOINTS[networkName];
+  const chainId = CHAIN_IDS[networkName];
   const coreChainId = CHAIN_IDS["optimism-sepolia"]; // Core is always on Optimism Sepolia
   
   if (!lzEndpoint || !chainId) {
@@ -60,4 +59,4 @@ const MidPayClientModule = buildModule("MidPayClientModule", (m) => {
   };
 });
 
-export default MidPayClientModule;
+export default MidPayClientEthModule;
