@@ -27,7 +27,7 @@ const MidPayClientEthModule = buildModule("MidPayClientEthModule", (m) => {
   
   // Hardcoded for Ethereum Sepolia
   const networkName = "eth-sepolia";
-  const coreAddress = "0x0000000000000000000000000000000000000000"; // Will be updated after core deployment
+  const coreAddress = "0x687fd495E18aBF1DD4aF09a6864d08a21661DC7D"; // Core contract address
   
   // Get LayerZero endpoint for current network
   const lzEndpoint = LAYERZERO_ENDPOINTS[networkName];

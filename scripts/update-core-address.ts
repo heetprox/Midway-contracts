@@ -14,21 +14,34 @@ function getChainIdForNetwork(networkName: string): number {
 }
 
 async function loadIgnitionDeployment(networkName: string, moduleName: string): Promise<any> {
-  const deploymentPath = `./ignition/deployments/chain-${getChainIdForNetwork(networkName)}/${moduleName}#${moduleName}.json`;
+  const deploymentPath = `./ignition/deployments/chain-${getChainIdForNetwork(networkName)}/deployed_addresses.json`;
   
   if (!fs.existsSync(deploymentPath)) {
     throw new Error(`Deployment file not found: ${deploymentPath}`);
   }
   
-  return JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+  const deployments = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+  return { contracts: deployments };
 }
 
 async function updateCoreAddressOnClient(clientNetwork: string, coreAddress: string) {
   console.log(`\nUpdating core address on ${clientNetwork}...`);
   
+  // Determine the correct module name based on the network
+  const moduleNames: Record<string, string> = {
+    "eth-sepolia": "MidPayClientEthModule",
+    "mode-sepolia": "MidPayClientModeModule", 
+    "zora-sepolia": "MidPayClientZoraModule"
+  };
+  
+  const moduleName = moduleNames[clientNetwork];
+  if (!moduleName) {
+    throw new Error(`Unknown client network: ${clientNetwork}`);
+  }
+  
   // Load client deployment
-  const clientDeployment = await loadIgnitionDeployment(clientNetwork, "MidPayClientModule");
-  const clientAddress = clientDeployment.contracts["MidPayClientModule#MidPayClient"];
+  const clientDeployment = await loadIgnitionDeployment(clientNetwork, moduleName);
+  const clientAddress = clientDeployment.contracts[`${moduleName}#MidPayClient`];
   
   // Connect to client contract
   const MidPayClient = await ethers.getContractFactory("MidPayClient");
