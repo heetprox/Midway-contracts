@@ -148,7 +148,7 @@ class MidPayDeployer {
       // Fund with ETH (reduced amount to fit available balance)
       const fundTx = await this.deployer.sendTransaction({
         to: this.deployedContracts[networkName].midPayCore!,
-        value: ethers.parseEther("0.01") // Reduced from 0.1 to 0.01 ETH
+        value: ethers.parseEther("0.01")
       });
       await fundTx.wait();
       console.log("💰 Funded MidPayCore with 0.01 ETH");
@@ -213,10 +213,10 @@ class MidPayDeployer {
       // Fund with ETH
       const fundTx = await this.deployer.sendTransaction({
         to: this.deployedContracts[networkName].midPay!,
-        value: ethers.parseEther("0.1")
+        value: ethers.parseEther("0.01")
       });
       await fundTx.wait();
-      console.log("💰 Funded MidPay with 0.1 ETH");
+      console.log("💰 Funded MidPay with 0.01 ETH");
     }
 
     // Deploy ExternalRouter for networks without native LayerZero
