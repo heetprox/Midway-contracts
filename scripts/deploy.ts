@@ -3,26 +3,26 @@ import { ethers } from "hardhat";
 import { writeFileSync, readFileSync, existsSync } from "fs";
 import { join } from "path";
 
-// Network configurations
+// Network configurations - Updated to match relayer chain IDs
 const NETWORKS = {
   "optimism-sepolia": {
     chainId: 11155420,
-    externalRouterChainId: 420, // uint16 compatible ID for ExternalRouter
+    externalRouterChainId: 420, // Keep existing for Optimism
     layerZeroEndpoint: "0x6EDCE65403992e310A62460808c4b910D972f10f", // LayerZero V2 endpoint
   },
   "eth-sepolia": {
     chainId: 11155111,
-    externalRouterChainId: 111, // uint16 compatible ID for ExternalRouter
-    layerZeroEndpoint: "0x6EDCE65403992e310A62460808c4b910D972f10f",
+    externalRouterChainId: 111,
+    layerZeroEndpoint: null,
   },
   "zora-sepolia": {
     chainId: 999999999,
-    externalRouterChainId: 999, // uint16 compatible ID for ExternalRouter
+    externalRouterChainId: 9999, // Updated to match relayer
     layerZeroEndpoint: null, // Will use ExternalRouter
   },
   "mode-sepolia": {
     chainId: 919,
-    externalRouterChainId: 919, // Already uint16 compatible
+    externalRouterChainId: 9998, // Updated to match relayer
     layerZeroEndpoint: null, // Will use ExternalRouter
   },
 };
@@ -72,6 +72,7 @@ class MidPayDeployer {
     }
 
     console.log(`\n🚀 Deploying to ${networkName} (Chain ID: ${networkConfig.chainId})`);
+    console.log(`🆔 External Router Chain ID: ${networkConfig.externalRouterChainId}`);
     
     // Get deployer
     [this.deployer] = await ethers.getSigners();
@@ -145,7 +146,7 @@ class MidPayDeployer {
       await approveTx.wait();
       console.log("✅ Approved unlimited USDC spending for MidPayCore");
 
-      // Fund with ETH (reduced amount to fit available balance)
+      // Fund with ETH
       const fundTx = await this.deployer.sendTransaction({
         to: this.deployedContracts[networkName].midPayCore!,
         value: ethers.parseEther("0.01")
@@ -160,7 +161,7 @@ class MidPayDeployer {
       const ExternalRouter = await ethers.getContractFactory("ExternalRouter");
       const externalRouter = await ExternalRouter.deploy(
         this.deployedContracts[networkName].midPayCore!,
-        networkConfig.externalRouterChainId // Use uint16 compatible chain ID
+        networkConfig.externalRouterChainId
       );
       await externalRouter.waitForDeployment();
 
@@ -190,7 +191,7 @@ class MidPayDeployer {
         this.deployedContracts[networkName].usdc!,
         networkConfig.layerZeroEndpoint || ethers.ZeroAddress, // Use zero address if no native endpoint
         optimismCore,
-        NETWORKS["optimism-sepolia"].externalRouterChainId // Use uint16 compatible chain ID
+        NETWORKS["optimism-sepolia"].externalRouterChainId // Core chain ID
       );
       await midPay.waitForDeployment();
 
@@ -225,7 +226,7 @@ class MidPayDeployer {
       const ExternalRouter = await ethers.getContractFactory("ExternalRouter");
       const externalRouter = await ExternalRouter.deploy(
         this.deployedContracts[networkName].midPay!,
-        networkConfig.externalRouterChainId // Use uint16 compatible chain ID
+        networkConfig.externalRouterChainId
       );
       await externalRouter.waitForDeployment();
 
@@ -294,6 +295,47 @@ class MidPayDeployer {
     }
   }
 
+  // New method to verify configuration
+  async verifyConfiguration() {
+    console.log("\n🔍 Verifying deployment configuration...");
+    
+    for (const [networkName, contracts] of Object.entries(this.deployedContracts)) {
+      if (!contracts.midPay && !contracts.midPayCore) continue;
+      
+      console.log(`\n📋 ${networkName.toUpperCase()}:`);
+      
+      try {
+        if (contracts.midPayCore) {
+          // Verify MidPayCore configuration
+          const midPayCore = await ethers.getContractAt("MidPayCore", contracts.midPayCore);
+          const usdc = await midPayCore.usdc();
+          const endpoint = await midPayCore.layerZeroEndpoint();
+          const router = await midPayCore.externalRouter();
+          
+          console.log(`  USDC: ${usdc}`);
+          console.log(`  LayerZero Endpoint: ${endpoint}`);
+          console.log(`  External Router: ${router}`);
+        }
+        
+        if (contracts.midPay) {
+          // Verify MidPayClient configuration  
+          const midPayClient = await ethers.getContractAt("MidPayClient", contracts.midPay);
+          const usdc = await midPayClient.usdc();
+          const endpoint = await midPayClient.layerZeroEndpoint();
+          const coreAddress = await midPayClient.coreAddress();
+          const coreChainId = await midPayClient.coreChainId();
+          
+          console.log(`  USDC: ${usdc}`);
+          console.log(`  LayerZero Endpoint: ${endpoint}`);
+          console.log(`  Core Address: ${coreAddress}`);
+          console.log(`  Core Chain ID: ${coreChainId}`);
+        }
+      } catch (error) {
+        console.log(`  ❌ Error verifying ${networkName}:`, error);
+      }
+    }
+  }
+
   printDeploymentSummary() {
     console.log("\n📋 Deployment Summary:");
     console.log("==========================================");
@@ -304,6 +346,11 @@ class MidPayDeployer {
       if (contracts.midPayCore) console.log(`  🏛️  MidPayCore: ${contracts.midPayCore}`);
       if (contracts.midPay) console.log(`  📱 MidPayClient: ${contracts.midPay}`);
       if (contracts.externalRouter) console.log(`  🔀 ExternalRouter: ${contracts.externalRouter}`);
+    }
+    
+    console.log("\n🆔 Chain ID Mapping:");
+    for (const [network, config] of Object.entries(NETWORKS)) {
+      console.log(`  ${network}: ${config.externalRouterChainId}`);
     }
     
     console.log("\n==========================================");
@@ -334,6 +381,9 @@ async function main() {
     if (networkName !== "optimism-sepolia") {
       await deployer.setupClientTrustedRemotes(networkName);
     }
+    
+    // Verify configuration
+    await deployer.verifyConfiguration();
     
     deployer.printDeploymentSummary();
     
