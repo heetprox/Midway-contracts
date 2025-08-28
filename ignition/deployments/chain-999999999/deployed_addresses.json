@@ -1,0 +1,5 @@
+{
+  "FakeUSDCModule#FakeUSDC": "0x73bdb7a3c1DD24E3b109DE0856CDF4577431aB76",
+  "MidPayClientZoraModule#MidPayClient": "0xFD8A5e2D68A9fB6a9F9e1a727E5C51ba020c837b",
+  "MidPayClientZoraModule#ExternalRouter": "0x380c70FcaC3ec4D0E421bC2293E928a1670dfB5d"
+}

@@ -1,4 +1,5 @@
 {
   "FakeUSDCModule#FakeUSDC": "0x404C2576ea1B478Ef309AEAf07e63263255D3d8c",
-  "MidPayClientEthModule#MidPayClient": "0xBEb286Bd923f6172B1BEcb6bB645D29c1eC9Dc53"
+  "MidPayClientEthModule#MidPayClient": "0xBEb286Bd923f6172B1BEcb6bB645D29c1eC9Dc53",
+  "MidPayClientEthModule#ExternalRouter": "0x02b09Ba3D40a9D2c4fbc4D7e16064A1EAd1218dB"
 }

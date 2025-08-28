@@ -1,0 +1,5 @@
+{
+  "FakeUSDCModule#FakeUSDC": "0xF577e68a879E63FBbbD1878E0604040Da0bB103B",
+  "MidPayClientModule#MidPayClient": "0x84aa00705dC27C1775FF8fD96fE66A83129F83e2",
+  "MidPayClientModule#ExternalRouter": "0xde5c528cdE063370f1c662562771929F52479aE8"
+}
