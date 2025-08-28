@@ -14,7 +14,7 @@ const LAYERZERO_ENDPOINTS = {
 };
 
 // LayerZero V1 Chain IDs (different from v2)
-const CHAIN_IDS = {
+const LAYERZERO_CHAIN_IDS = {
   "optimism-sepolia": 10232,  // These might be correct
   "eth-sepolia": 10161,       // Need to verify v1 vs v2
   "mode-sepolia": 10260,      
@@ -31,8 +31,10 @@ const MidPayClientZoraModule = buildModule("MidPayClientZoraModule", (m) => {
   
   // Get LayerZero endpoint for current network
   const lzEndpoint = LAYERZERO_ENDPOINTS[networkName];
-  const chainId = CHAIN_IDS[networkName];
-  const coreChainId = CHAIN_IDS["optimism-sepolia"]; // Core is always on Optimism Sepolia
+  const currentChainId = LAYERZERO_CHAIN_IDS[networkName];
+
+  const chainId = LAYERZERO_CHAIN_IDS[networkName];
+  const coreChainId = LAYERZERO_CHAIN_IDS["optimism-sepolia"];
   
   if (!lzEndpoint || !chainId) {
     throw new Error(`Unsupported network: ${networkName}`);
@@ -46,16 +48,22 @@ const MidPayClientZoraModule = buildModule("MidPayClientZoraModule", (m) => {
     coreChainId
   ]);
 
-  console.log("lzEndpoint", lzEndpoint);
-  console.log("chainId", chainId);
-  console.log("coreChainId", coreChainId);
-  console.log("coreAddress", coreAddress);
-  console.log("fakeUSDC", fakeUSDC);
-  console.log("midPayClient", midPayClient);
+  const externalRouter = m.contract("ExternalRouter", [
+    midPayClient,
+    currentChainId
+  ]);
+  
+  console.log(`Deploying on ${networkName}:`);
+  console.log("lzEndpoint:", lzEndpoint);
+  console.log("currentChainId:", currentChainId);
+  console.log("coreAddress:", coreAddress);
+  console.log("coreChainId:", coreChainId);
+  
   
   return { 
     fakeUSDC, 
-    midPayClient
+    midPayClient,
+    externalRouter
   };
 });
 
