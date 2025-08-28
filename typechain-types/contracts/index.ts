@@ -9,4 +9,5 @@ import type * as router from "./router";
 export type { router };
 import type * as util from "./util";
 export type { util };
+export type { MidPayClient } from "./MidPayClient";
 export type { MidPayCore } from "./MidPayCore";

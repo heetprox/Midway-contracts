@@ -5,4 +5,5 @@ export * as midPaySol from "./MidPay.sol";
 export * as interfaces from "./interfaces";
 export * as router from "./router";
 export * as util from "./util";
+export { MidPayClient__factory } from "./MidPayClient__factory";
 export { MidPayCore__factory } from "./MidPayCore__factory";

@@ -4,10 +4,10 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "deploy:core": "hardhat ignition deploy ignition/modules/MidPayCore.ts --network optimism-sepolia",
-    "deploy:eth": "hardhat ignition deploy ignition/modules/MidPayClientEth.ts --network eth-sepolia",
-    "deploy:mode": "hardhat ignition deploy ignition/modules/MidPayClientMode.ts --network mode-sepolia",
-    "deploy:zora": "hardhat ignition deploy ignition/modules/MidPayClientZora.ts --network zora-sepolia",
+    "deploy:optimism": "hardhat run scripts/deploy.ts --network optimism-sepolia",
+    "deploy:eth": "hardhat run scripts/deploy.ts --network eth-sepolia",
+    "deploy:zora": "hardhat run scripts/deploy.ts --network zora-sepolia",
+    "deploy:mode": "hardhat run scripts/deploy.ts --network mode-sepolia",
     "deploy:all": "bun run deploy:core && bun run deploy:eth && bun run deploy:mode && bun run deploy:zora",
     "configure:core": "hardhat run scripts/configure-trusted-remotes.ts --network optimism-sepolia",
     "configure:eth": "hardhat run scripts/configure-trusted-remotes.ts --network eth-sepolia",
@@ -15,6 +15,7 @@
     "configure:zora": "hardhat run scripts/configure-trusted-remotes.ts --network zora-sepolia",
     "configure:all": "npm run configure:core && npm run configure:eth && npm run configure:mode && npm run configure:zora",
     "update-core-address": "hardhat run scripts/update-core-address.ts",
+    "setup:remotes": "hardhat run scripts/setup-remotes.ts --network optimism-sepolia",
     "verify:core": "hardhat ignition verify MidPayCoreModule --network optimism-sepolia",
     "verify:eth": "hardhat ignition verify MidPayClientModule --network eth-sepolia",
     "verify:mode": "hardhat ignition verify MidPayClientModule --network mode-sepolia",
@@ -31,6 +32,7 @@
     "@openzeppelin/contracts": "^5.4.0",
     "@types/node": "^20.17.2",
     "hardhat": "^2.22.15",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
@@ -39,6 +41,6 @@
   "dependencies": {
     "@layerzerolabs/solidity-examples": "^1.1.0",
     "dotenv": "^16.4.5",
-    "ethers": "^5.7.2"
+    "ethers": "^6.4.0"
   }
 }

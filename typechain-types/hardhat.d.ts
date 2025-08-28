@@ -62,6 +62,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MidPayClient__factory>;
     getContractFactory(
+      name: "MidPayClient",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MidPayClient__factory>;
+    getContractFactory(
       name: "MidPayCore",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MidPayCore__factory>;
@@ -135,6 +139,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.MidPayClient>;
     getContractAt(
+      name: "MidPayClient",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MidPayClient>;
+    getContractAt(
       name: "MidPayCore",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -194,6 +203,10 @@ declare module "hardhat/types/runtime" {
       name: "IExternalRouter",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IExternalRouter>;
+    deployContract(
+      name: "MidPayClient",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MidPayClient>;
     deployContract(
       name: "MidPayClient",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -266,6 +279,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IExternalRouter>;
+    deployContract(
+      name: "MidPayClient",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MidPayClient>;
     deployContract(
       name: "MidPayClient",
       args: any[],
