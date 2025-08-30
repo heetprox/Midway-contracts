@@ -21,7 +21,7 @@ async function checkZoraQueue() {
     const queueLength = await zoraRouter.queueLength();
     console.log(`📬 Messages in Zora queue: ${queueLength}`);
 
-    if (queueLength.length() === 0) {
+    if (queueLength === 0) {
       console.log("✅ No messages stuck in Zora queue - backend processed them correctly");
       console.log("💡 The issue is that backend couldn't send them to Optimism due to RPC errors");
       return;
@@ -47,6 +47,11 @@ async function checkZoraQueue() {
         console.log(`    ⚠️  Could not decode payload`);
       }
     }
+
+    console.log(`\n💡 These messages are stuck because backend couldn't route them to Optimism`);
+    console.log(`🔧 Solutions:`);
+    console.log(`   1. Fix RPC connection and restart backend`);
+    console.log(`   2. Manually route these messages once RPC is working`);
 
   } catch (error) {
     console.log("❌ Error checking Zora queue:", error);
