@@ -6,7 +6,8 @@
   },
   "eth-sepolia": {
     "usdc": "0x5E973520943EAc2Fcc4329dD60De3CD3AD8821b7",
-    "midPay": "0x9E86ca00DDbcbF09571C89952faE0b02E3E265d9"
+    "midPay": "0x9E86ca00DDbcbF09571C89952faE0b02E3E265d9",
+    "externalRouter": "0x172Bd850a824aBD2Da83C639AA48BE7F73d7e2F2"
   },
   "mode-sepolia": {
     "usdc": "0x1e48E4AAd4e1F5e32D743bc54e859Fa538D42a79",

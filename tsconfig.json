@@ -27,7 +27,7 @@
     "./test",
     "./typechain-types",
     "./hardhat.config.ts"
-  ],
+, "server.ts"  ],
   "exclude": [
     "node_modules",
     "dist"
