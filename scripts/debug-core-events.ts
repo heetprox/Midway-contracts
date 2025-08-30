@@ -19,9 +19,9 @@ async function debugCoreEvents() {
 
   console.log("\n📊 Current balance:", ethers.formatEther(await midPayCore.balances(deployer.address)), "USDC");
 
-  // Check recent events (last 1000 blocks)
+  // Check recent events (last 400 blocks to avoid RPC limits)
   const currentBlock = await ethers.provider.getBlockNumber();
-  const fromBlock = Math.max(0, currentBlock - 1000);
+  const fromBlock = Math.max(0, currentBlock - 400);
 
   console.log(`\n🔍 Checking events from block ${fromBlock} to ${currentBlock}...`);
 
