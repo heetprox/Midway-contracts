@@ -4,7 +4,6 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 async function checkZoraQueue() {
-  // Load deployed contracts
   const contractsFile = join(__dirname, "../deployed-contracts.json");
   const deployedContracts = JSON.parse(readFileSync(contractsFile, "utf8"));
   
@@ -17,7 +16,6 @@ async function checkZoraQueue() {
       deployedContracts["zora-sepolia"].externalRouter!
     );
 
-    console.log("📡 Zora ExternalRouter:", deployedContracts["zora-sepolia"].externalRouter!);
 
     // Check queue length
     const queueLength = await zoraRouter.queueLength();
