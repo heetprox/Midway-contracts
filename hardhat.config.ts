@@ -48,11 +48,39 @@ const config: HardhatUserConfig = {
       chainId: 999999999,
       gasPrice: "auto",
     },
-    // Mode Sepolia
-    "mode-sepolia": {
-      url: process.env.MODE_SEPOLIA_RPC_URL || "https://sepolia.mode.network",
+    // Base Sepolia
+    "base-sepolia": {
+      url: process.env.BASE_SEPOLIA_RPC_URL || "https://sepolia.base.org",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-      chainId: 919,
+      chainId: 84532,
+      gasPrice: "auto",
+    },
+    // Wanchain Sepolia
+    "wanchain-sepolia": {
+      url: process.env.WANCHAIN_SEPOLIA_RPC_URL || "https://gwan-ssl.wandevs.org:46891",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 999, // Update with actual Wanchain Sepolia chain ID
+      gasPrice: "auto",
+    },
+    // Inks Sepolia
+    "inks-sepolia": {
+      url: process.env.INKS_SEPOLIA_RPC_URL || "https://rpc-gel-sepolia.inkonchain.com",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 763373, // Update with actual Inks Sepolia chain ID
+      gasPrice: "auto",
+    },
+    // Unilayer Sepolia
+    "unilayer-sepolia": {
+      url: process.env.UNILAYER_SEPOLIA_RPC_URL || "https://sepolia-rpc.unilayer.io",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 2777, // Update with actual Unilayer Sepolia chain ID
+      gasPrice: "auto",
+    },
+    // Polygon Amoy (Testnet)
+    "polygon-amoy": {
+      url: process.env.POLYGON_AMOY_RPC_URL || "https://rpc-amoy.polygon.technology",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      chainId: 80002,
       gasPrice: "auto",
     },
   },
@@ -60,6 +88,12 @@ const config: HardhatUserConfig = {
     apiKey: {
       sepolia: process.env.ETHERSCAN_API_KEY || "",
       optimismSepolia: process.env.OPTIMISM_ETHERSCAN_API_KEY || "",
+      zoraSepolia: process.env.ZORA_ETHERSCAN_API_KEY || "",
+      baseSepolia: process.env.BASE_ETHERSCAN_API_KEY || "",
+      polygonAmoy: process.env.POLYGON_ETHERSCAN_API_KEY || "",
+      wanchainSepolia: process.env.WANCHAIN_ETHERSCAN_API_KEY || "",
+      inksSepolia: process.env.INKS_ETHERSCAN_API_KEY || "",
+      unilayerSepolia: process.env.UNILAYER_ETHERSCAN_API_KEY || "",
     },
   },
   gasReporter: {
