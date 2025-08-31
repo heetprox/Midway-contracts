@@ -8,7 +8,7 @@ const NETWORKS = {
   "optimism-sepolia": {
     chainId: 11155420,
     externalRouterChainId: 420, // Keep existing for Optimism
-    layerZeroEndpoint: "0x6EDCE65403992e310A62460808c4b910D972f10f", // LayerZero V2 endpoint
+    layerZeroEndpoint: "0x6EDCE65403992e310A62460808c4b910D972f10f",
   },
   "eth-sepolia": {
     chainId: 11155111,
@@ -20,9 +20,29 @@ const NETWORKS = {
     externalRouterChainId: 9999, // Updated to match relayer
     layerZeroEndpoint: null, // Will use ExternalRouter
   },
-  "mode-sepolia": {
-    chainId: 919,
-    externalRouterChainId: 9998, // Updated to match relayer
+  "base-sepolia": {
+    chainId: 84532,
+    externalRouterChainId: 845,
+    layerZeroEndpoint: null, // Will use ExternalRouter
+  },
+  "wanchain-sepolia": {
+    chainId: 999, // You'll need to update this with actual Wanchain Sepolia chain ID
+    externalRouterChainId: 99,
+    layerZeroEndpoint: null, // Will use ExternalRouter
+  },
+  "inks-sepolia": {
+    chainId: 763373, // You'll need to update this with actual Inks Sepolia chain ID
+    externalRouterChainId: 763,
+    layerZeroEndpoint: null, // Will use ExternalRouter
+  },
+  "unilayer-sepolia": {
+    chainId: 2777, // You'll need to update this with actual Unilayer Sepolia chain ID
+    externalRouterChainId: 277,
+    layerZeroEndpoint: null, // Will use ExternalRouter
+  },
+  "polygon-amoy": {
+    chainId: 80002,
+    externalRouterChainId: 800,
     layerZeroEndpoint: null, // Will use ExternalRouter
   },
 };
@@ -391,7 +411,7 @@ async function main() {
     
     if (networkName === "optimism-sepolia") {
       console.log("\n💡 Next steps:");
-      console.log("1. Deploy to other networks: eth-sepolia, zora-sepolia, mode-sepolia");
+      console.log("1. Deploy to other networks: eth-sepolia, zora-sepolia, base-sepolia, wanchain-sepolia, inks-sepolia, unilayer-sepolia, polygon-amoy");
       console.log("2. Run the setup-remotes script to configure cross-chain connections");
     }
     
