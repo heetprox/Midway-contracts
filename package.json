@@ -1,31 +1,25 @@
 {
   "name": "midway-contracts",
-  "module": "index.ts",
+  "version": "1.0.0",
+  "description": "Cross-chain payment infrastructure powered by LayerZero",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "deploy:optimism": "hardhat run scripts/deploy.ts --network optimism-sepolia",
+    "clean": "hardhat clean",
+    "deploy:core": "hardhat run scripts/deploy.ts --network optimism-sepolia",
     "deploy:eth": "hardhat run scripts/deploy.ts --network eth-sepolia",
     "deploy:zora": "hardhat run scripts/deploy.ts --network zora-sepolia",
-    "deploy:mode": "hardhat run scripts/deploy.ts --network mode-sepolia",
-    "deploy:all": "bun run deploy:core && bun run deploy:eth && bun run deploy:mode && bun run deploy:zora",
-    "configure:core": "hardhat run scripts/configure-trusted-remotes.ts --network optimism-sepolia",
-    "configure:eth": "hardhat run scripts/configure-trusted-remotes.ts --network eth-sepolia",
-    "configure:mode": "hardhat run scripts/configure-trusted-remotes.ts --network mode-sepolia",
-    "configure:zora": "hardhat run scripts/configure-trusted-remotes.ts --network zora-sepolia",
-    "configure:all": "npm run configure:core && npm run configure:eth && npm run configure:mode && npm run configure:zora",
-    "update-core-address": "hardhat run scripts/update-core-address.ts",
-    "setup:remotes": "hardhat run scripts/setup-remotes.ts --network optimism-sepolia",
-    "verify:core": "hardhat ignition verify MidPayCoreModule --network optimism-sepolia",
-    "verify:eth": "hardhat ignition verify MidPayClientModule --network eth-sepolia",
-    "verify:mode": "hardhat ignition verify MidPayClientModule --network mode-sepolia",
-    "verify:zora": "hardhat ignition verify MidPayClientModule --network zora-sepolia",
-    "clean": "hardhat clean && rm -rf ignition/deployments",
-    "status": "hardhat ignition status",
-    "list-deployments": "find ./ignition/deployments -name '*.json' -type f | head -20"
+    "deploy:base": "hardhat run scripts/deploy.ts --network base-sepolia",
+    "deploy:worldchain": "hardhat run scripts/deploy.ts --network worldchain-sepolia",
+    "deploy:ink": "hardhat run scripts/deploy.ts --network ink-sepolia",
+    "deploy:unichain": "hardhat run scripts/deploy.ts --network unichain-sepolia",
+    "deploy:polygon": "hardhat run scripts/deploy.ts --network polygon-amoy",
+    "fix:remotes": "hardhat run scripts/fix-trusted-remotes-simple.ts --network optimism-sepolia",
+    "debug:remotes": "hardhat run scripts/debug-trusted-remote-mismatch.ts --network optimism-sepolia",
+    "debug:flow": "hardhat run scripts/debug-cross-chain-flow.ts --network optimism-sepolia",
+    "check:balance": "hardhat run scripts/check-balance-simple.ts --network optimism-sepolia"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-ignition": "^0.15.5",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.11",
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.11",
@@ -35,12 +29,18 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
   "dependencies": {
     "@layerzerolabs/solidity-examples": "^1.1.0",
     "dotenv": "^16.4.5",
     "ethers": "^6.4.0"
-  }
+  },
+  "keywords": [
+    "blockchain",
+    "cross-chain",
+    "payments",
+    "layerzero",
+    "defi"
+  ],
+  "author": "Midway Team",
+  "license": "MIT"
 }
