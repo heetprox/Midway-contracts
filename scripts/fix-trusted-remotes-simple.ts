@@ -2,6 +2,7 @@
 import { ethers } from "hardhat";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { getChainMappings } from "./network-config";
 
 async function fixTrustedRemotes() {
   // Load deployed contracts
@@ -19,24 +20,11 @@ async function fixTrustedRemotes() {
 
   console.log("🏛️  MidPayCore:", deployedContracts["optimism-sepolia"].midPayCore!);
 
-  // Chain ID mapping from your backend/deploy script
-  const chainMappings = [
-    { 
-      name: "zora-sepolia",
-      chainId: 9999,
-      clientAddress: deployedContracts["zora-sepolia"]?.midPay
-    },
-    { 
-      name: "mode-sepolia", 
-      chainId: 9998,
-      clientAddress: deployedContracts["mode-sepolia"]?.midPay
-    },
-    { 
-      name: "eth-sepolia",
-      chainId: 111, 
-      clientAddress: deployedContracts["eth-sepolia"]?.midPay
-    }
-  ];
+  // Chain ID mapping from centralized network configuration
+  const chainMappings = getChainMappings().map(mapping => ({
+    ...mapping,
+    clientAddress: deployedContracts[mapping.name]?.midPay
+  }));
 
   for (const mapping of chainMappings) {
     if (!mapping.clientAddress) {

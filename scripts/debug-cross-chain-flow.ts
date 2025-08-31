@@ -2,6 +2,7 @@
 import { ethers } from "hardhat";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { NETWORKS, getClientNetworks } from "./network-config";
 
 async function debugCrossChainFlow() {
   const contractsFile = join(__dirname, "../deployed-contracts.json");
@@ -10,8 +11,8 @@ async function debugCrossChainFlow() {
   const [deployer] = await ethers.getSigners();
   console.log("🔍 Debugging Cross-Chain Flow for:", deployer.address);
 
-  // Check all client networks
-  const clientNetworks = ["zora-sepolia", "mode-sepolia", "eth-sepolia"];
+  // Check all client networks from centralized configuration
+  const clientNetworks = getClientNetworks();
   
   for (const networkName of clientNetworks) {
     if (!deployedContracts[networkName]) {
@@ -81,8 +82,9 @@ async function debugCrossChainFlow() {
         console.log(`  🆔 Core Chain ID: ${await client.coreChainId()}`);
         
         // Check trusted remote for Optimism
-        const trustedRemote = await client.trustedRemoteLookup(420); // Optimism chain ID
-        console.log(`  🤝 Trusted Remote (Chain 420): ${trustedRemote}`);
+        const optimismChainId = NETWORKS["optimism-sepolia"].externalRouterChainId;
+        const trustedRemote = await client.trustedRemoteLookup(optimismChainId);
+        console.log(`  🤝 Trusted Remote (Chain ${optimismChainId}): ${trustedRemote}`);
         
       } catch (error) {
         console.log(`  ❌ Error checking MidPayClient: ${error}`);
