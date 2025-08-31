@@ -105,15 +105,15 @@ Create `.env` file:
 # Required: Private key for deployments
 PRIVATE_KEY=your_private_key_here
 
-# Network RPC URLs (add as needed)
-OPTIMISM_SEPOLIA_RPC_URL=https://sepolia.optimism.io
-ETH_SEPOLIA_RPC_URL=https://ethereum-sepolia.blockpi.network/v1/rpc/public
-ZORA_SEPOLIA_RPC_URL=https://sepolia.rpc.zora.energy
-BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-WORLDCHAIN_SEPOLIA_RPC_URL=https://worldchain-sepolia.g.alchemy.com/v2/YOUR_KEY
-INK_SEPOLIA_RPC_URL=https://sepolia-rpc.inkonchain.com
-UNICHAIN_SEPOLIA_RPC_URL=https://sepolia.unichain.org
-POLYGON_AMOY_RPC_URL=https://rpc-amoy.polygon.technology
+# Network RPC URLs (add as needed) (get from alchmey or any other provider)
+OPTIMISM_SEPOLIA_RPC_URL=
+ETH_SEPOLIA_RPC_URL=
+ZORA_SEPOLIA_RPC_URL=
+BASE_SEPOLIA_RPC_URL=
+WORLDCHAIN_SEPOLIA_RPC_URL=
+INK_SEPOLIA_RPC_URL=
+UNICHAIN_SEPOLIA_RPC_URL=
+POLYGON_AMOY_RPC_URL=
 ```
 
 ### 📦 Compilation
