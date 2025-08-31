@@ -132,11 +132,6 @@ class MidPayDeployer {
 
     this.deployedContracts[networkName].usdc = await usdc.getAddress();
     console.log("✅ FakeUSDC deployed:", this.deployedContracts[networkName].usdc);
-
-    // Mint tokens to deployer
-    const mintTx = await usdc.mint(this.deployer.address, ethers.parseEther("1000000"));
-    await mintTx.wait();
-    console.log("💰 Minted 1M USDC to deployer");
   }
 
   private async deployOptimismCore(networkName: string, networkConfig: any) {
@@ -152,27 +147,6 @@ class MidPayDeployer {
 
       this.deployedContracts[networkName].midPayCore = await midPayCore.getAddress();
       console.log("✅ MidPayCore deployed:", this.deployedContracts[networkName].midPayCore);
-
-      // Fund and setup MidPayCore
-      const usdc = await ethers.getContractAt("FakeUSDC", this.deployedContracts[networkName].usdc!);
-      
-      // Mint USDC to MidPayCore
-      const mintTx = await usdc.mint(this.deployedContracts[networkName].midPayCore!, ethers.parseEther("1000000"));
-      await mintTx.wait();
-      console.log("💰 Minted 1M USDC to MidPayCore");
-
-      // Approve USDC spending
-      const approveTx = await usdc.approve(this.deployedContracts[networkName].midPayCore!, ethers.MaxUint256);
-      await approveTx.wait();
-      console.log("✅ Approved unlimited USDC spending for MidPayCore");
-
-      // Fund with ETH
-      const fundTx = await this.deployer.sendTransaction({
-        to: this.deployedContracts[networkName].midPayCore!,
-        value: ethers.parseEther("0.01")
-      });
-      await fundTx.wait();
-      console.log("💰 Funded MidPayCore with 0.01 ETH");
     }
 
     // Deploy ExternalRouter for Optimism
@@ -217,27 +191,6 @@ class MidPayDeployer {
 
       this.deployedContracts[networkName].midPay = await midPay.getAddress();
       console.log("✅ MidPayClient deployed:", this.deployedContracts[networkName].midPay);
-
-      // Fund and setup MidPayClient
-      const usdc = await ethers.getContractAt("FakeUSDC", this.deployedContracts[networkName].usdc!);
-      
-      // Mint USDC to MidPayClient
-      const mintTx = await usdc.mint(this.deployedContracts[networkName].midPay!, ethers.parseEther("1000000"));
-      await mintTx.wait();
-      console.log("💰 Minted 1M USDC to MidPayClient");
-
-      // Approve USDC spending
-      const approveTx = await usdc.approve(this.deployedContracts[networkName].midPay!, ethers.MaxUint256);
-      await approveTx.wait();
-      console.log("✅ Approved unlimited USDC spending for MidPayClient");
-
-      // Fund with ETH
-      const fundTx = await this.deployer.sendTransaction({
-        to: this.deployedContracts[networkName].midPay!,
-        value: ethers.parseEther("0.01")
-      });
-      await fundTx.wait();
-      console.log("💰 Funded MidPay with 0.01 ETH");
     }
 
     // Deploy ExternalRouter for networks without native LayerZero

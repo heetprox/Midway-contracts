@@ -18,5 +18,30 @@
     "usdc": "0x3a7448558d6f7E766c79B77b8f59d901e507F5A6",
     "midPay": "0xfd0A253c63aE25f38846CfF2FE0e521182636b32",
     "externalRouter": "0x6c99AC35d4cCc171eF2008b93Bd5432D884E0267"
+  },
+  "worldchain-sepolia": {
+    "usdc": "0xfe10DE969f5653D07FA3D486B286d4Da72082E7A",
+    "midPay": "0x73bdb7a3c1DD24E3b109DE0856CDF4577431aB76",
+    "externalRouter": "0xFD8A5e2D68A9fB6a9F9e1a727E5C51ba020c837b"
+  },
+  "base-sepolia": {
+    "usdc": "0x79460d7f39d0C2cf0BB730Ac1fb56540edDDF691",
+    "midPay": "0x687fd495E18aBF1DD4aF09a6864d08a21661DC7D",
+    "externalRouter": "0x7AeC83cEC21521Fc883D5C02816cBB09c52919a7"
+  },
+  "ink-sepolia": {
+    "usdc": "0x79460d7f39d0C2cf0BB730Ac1fb56540edDDF691",
+    "midPay": "0x687fd495E18aBF1DD4aF09a6864d08a21661DC7D",
+    "externalRouter": "0x7AeC83cEC21521Fc883D5C02816cBB09c52919a7"
+  },
+  "unichain-sepolia": {
+    "usdc": "0x6fef553421d3f3330a892C66b1DD8684ebdeD770",
+    "midPay": "0x229e82E25Ae0f9a47B52133b9B1aFc68800Ae224",
+    "externalRouter": "0xfe10DE969f5653D07FA3D486B286d4Da72082E7A"
+  },
+  "polygon-amoy": {
+    "usdc": "0x229e82E25Ae0f9a47B52133b9B1aFc68800Ae224",
+    "midPay": "0xfe10DE969f5653D07FA3D486B286d4Da72082E7A",
+    "externalRouter": "0x73bdb7a3c1DD24E3b109DE0856CDF4577431aB76"
   }
 }
