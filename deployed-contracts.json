@@ -9,11 +9,6 @@
     "midPay": "0x9E86ca00DDbcbF09571C89952faE0b02E3E265d9",
     "externalRouter": "0x172Bd850a824aBD2Da83C639AA48BE7F73d7e2F2"
   },
-  "mode-sepolia": {
-    "usdc": "0x1e48E4AAd4e1F5e32D743bc54e859Fa538D42a79",
-    "midPay": "0x9eb1C7265597DC6ca3a5ae07273C6A75c2058F08",
-    "externalRouter": "0x6f11303c1CFEB708a3469e8Fc2353452E83031e5"
-  },
   "zora-sepolia": {
     "usdc": "0x3a7448558d6f7E766c79B77b8f59d901e507F5A6",
     "midPay": "0xfd0A253c63aE25f38846CfF2FE0e521182636b32",
