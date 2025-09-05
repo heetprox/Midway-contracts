@@ -4,7 +4,7 @@
 
 ![Midway Logo](https://img.shields.io/badge/Midway-Cross--Chain%20Payments-blue?style=for-the-badge&logo=ethereum)
 
-**Seamless cross-chain payments powered by LayerZero**
+**Seamless cross-chain payments multi-blockchain powered by LayerZero**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Hardhat](https://img.shields.io/badge/Built%20with-Hardhat-brightgreen.svg)](https://hardhat.org/)
