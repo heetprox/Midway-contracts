@@ -74,7 +74,9 @@ contract MidPayClient is Ownable, ILayerZeroReceiver {
         );
     }
 
-    /// @notice This function should not revert, as it should not be blocking the future transfers.
+    /// @notice This function should not revert, as it should not be blocking the future transfers
+
+    
     function lzReceive(
         uint16 _srcChainId,
         bytes memory _srcAddress,
